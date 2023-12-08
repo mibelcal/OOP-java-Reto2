@@ -13,7 +13,7 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
     private String db_url = null;
 
     @Override
-    public Usuario crear(Usuario usuario) throws SQLException {
+    public Usuario crear(Usuario usuario) throws SQLException, UsuarioException {
         //IBC PTE DUDA ACTIVO BIT
         String sql = "INSERT INTO usuario values (NULL,?,?,?,?)";
         // String sql = "INSERT INTO usuario values (NULL,?,?,?,NULL)";
@@ -44,16 +44,12 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
                     throw new SQLException("Usuario creado erroneamente!!!");
                 }
             }
-//            } else {
-//                throw new UsuarioException();
-//
-//            }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new SQLException(e);
         } catch (UsuarioException e) {
             e.printStackTrace();
-            //throw new Exception(e); duda IBC
+            throw new UsuarioException();
         }
 
         return usuario;

@@ -1,6 +1,7 @@
 package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.config.SpringConfig;
+import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
@@ -41,7 +43,14 @@ class UsuarioJDBCRepositoryTest {
     }
 
     @Test
-    void dadoUnUsuarioNOValido_cuandoCrear_entoncesExcepcion() {
+    void dadoUnUsuarioNOValido_cuandoCrear_entoncesExcepcion() throws UsuarioException {
+        assertThrows(UsuarioException.class, () -> {
+            //Usuario no válido: activo = false, debería ser true
+            Usuario user = new Usuario(null, "UsuNoValido", "UsuNoValido@gmail.com", LocalDate.of(2023, 12, 8), false);
+            repo.crear(user);
+            System.out.println(user);
+        });
+
     }
 
     @Test
