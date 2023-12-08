@@ -16,7 +16,7 @@ public class ServicioUsuarios implements IServicioUsuarios{
     @Override
     public Usuario crearUsuario(Usuario usuario) throws UsuarioException, SQLException {
         repoUsuarios.crear(usuario);
-        return null;
+        return usuario;
     }
 
     @Override
