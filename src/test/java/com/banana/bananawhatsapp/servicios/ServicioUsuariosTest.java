@@ -1,6 +1,7 @@
 package com.banana.bananawhatsapp.servicios;
 
 import com.banana.bananawhatsapp.config.SpringConfig;
+import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
@@ -42,6 +44,12 @@ class ServicioUsuariosTest {
 
     @Test
     void dadoUnUsuarioNOValido_cuandoCrearUsuario_entoncesExcepcion() {
+        assertThrows(UsuarioException.class, () -> {
+            //Usuario no válido: activo = false, debería ser true
+            Usuario user = new Usuario(null, "UsuServicioNOK", "UsuServicioNOK@hotmail.com", LocalDate.of(2023, 12, 8), false);
+            servicio.crearUsuario(user);
+            System.out.println(user);
+        });
     }
 
     @Test
