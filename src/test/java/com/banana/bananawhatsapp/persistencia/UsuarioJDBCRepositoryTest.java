@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ContextConfiguration(classes = {SpringConfig.class})
 //@ActiveProfiles("dev")
 class UsuarioJDBCRepositoryTest {
-    //IUsuarioRepository repo;
+
     @Autowired
     private IUsuarioRepository repo;
 
