@@ -3,12 +3,19 @@ package com.banana.bananawhatsapp.controladores;
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import com.banana.bananawhatsapp.servicios.IServicioUsuarios;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.sql.*;
 
+@Controller
+
 public class ControladorUsuarios {
 
+    //private IServicioUsuarios servicioUsuarios;
+    @Autowired
     private IServicioUsuarios servicioUsuarios;
+
 
     public Usuario alta(Usuario nuevo) throws SQLException, UsuarioException {
         try {
