@@ -14,9 +14,7 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
 
     @Override
     public Usuario crear(Usuario usuario) throws SQLException, UsuarioException {
-        //IBC PTE DUDA ACTIVO BIT
         String sql = "INSERT INTO usuario values (NULL,?,?,?,?)";
-        // String sql = "INSERT INTO usuario values (NULL,?,?,?,NULL)";
 
         System.out.println("db_url: " + db_url);
         try (
