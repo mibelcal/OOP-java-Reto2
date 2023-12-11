@@ -14,7 +14,7 @@ public class MensajeJDBCRepository implements IMensajeRepository{
     private String db_url = null;
 
     @Override
-    public Mensaje crear(Mensaje mensaje) throws SQLException {
+    public Mensaje crear(Mensaje mensaje) throws MensajeException, SQLException {
         String sql = "INSERT INTO mensaje values (NULL,?,?,?,?)";
 
         System.out.println("db_url: " + db_url);

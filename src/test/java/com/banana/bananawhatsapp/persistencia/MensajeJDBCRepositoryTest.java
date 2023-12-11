@@ -1,6 +1,7 @@
 package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.config.SpringConfig;
+import com.banana.bananawhatsapp.exceptions.MensajeException;
 import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
@@ -9,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
 //@ActiveProfiles("dev")
-class MensajeRepositoryTest {
+class MensajeJDBCRepositoryTest {
     @Autowired
     //IMensajeRepository repo;
     private IMensajeRepository repoMensajes;
@@ -47,7 +48,19 @@ class MensajeRepositoryTest {
     }
 
     @Test
-    void dadoUnMensajeNOValido_cuandoCrear_entoncesExcepcion() {
+    void dadoUnMensajeNOValido_cuandoCrear_entoncesExcepcion() throws MensajeException {
+        assertThrows(MensajeException.class, () -> {
+            //Mensaje no válido: remitente null
+            Usuario remitente = null;
+            Usuario destinatario = repoUsuarios.getUsuarioById(5);
+
+            Mensaje mensaje = new Mensaje(null, remitente, destinatario, "Mensaje Controlador >> Servicio", LocalDate.of(2023, 12, 10));
+
+            repoMensajes.crear(mensaje);
+
+            System.out.println(mensaje);
+        });
+
     }
 
     @Test
