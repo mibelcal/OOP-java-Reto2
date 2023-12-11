@@ -1,6 +1,7 @@
 package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
+import com.banana.bananawhatsapp.exceptions.UsuarioNotFoundException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import lombok.Setter;
 
@@ -51,6 +52,38 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
         }
 
         return usuario;
+    }
+
+    @Override
+    public Usuario getUsuarioById(Integer id) throws UsuarioNotFoundException, Exception {
+        Usuario user = null;
+
+        try (
+                Connection conn = DriverManager.getConnection(db_url);
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM usuario u WHERE u.id='" + id + "'  LIMIT 1")
+        ) {
+            if (rs.next()) {
+                user = new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("email"),
+                        rs.getDate("alta").toLocalDate(),
+                        rs.getBoolean("activo")
+                );
+            } else {
+                throw new UsuarioNotFoundException("Usuario no encontrado!!!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception(e);
+        } catch (UsuarioNotFoundException e) {
+            e.printStackTrace();
+            throw new UsuarioNotFoundException();
+        }
+
+        return user;
     }
 
     @Override

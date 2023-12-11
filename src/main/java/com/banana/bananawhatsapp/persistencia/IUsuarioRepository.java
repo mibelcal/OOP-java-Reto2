@@ -1,5 +1,6 @@
 package com.banana.bananawhatsapp.persistencia;
 
+import com.banana.bananawhatsapp.exceptions.UsuarioNotFoundException;
 import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 
@@ -8,6 +9,8 @@ import java.util.Set;
 
 public interface IUsuarioRepository {
     public Usuario crear(Usuario usuario) throws SQLException;
+
+    Usuario getUsuarioById(Integer id) throws UsuarioNotFoundException, Exception;
 
     public Usuario actualizar(Usuario usuario) throws SQLException;
 

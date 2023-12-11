@@ -2,6 +2,7 @@ package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.config.SpringConfig;
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
+import com.banana.bananawhatsapp.exceptions.UsuarioNotFoundException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
@@ -54,6 +54,23 @@ class UsuarioJDBCRepositoryTest {
     }
 
     @Test
+    void dadoIdUsuario_cuandogetUsuarioEnDB_entoncesUsuario() throws Exception {
+        Usuario usuario = repo.getUsuarioById(1);
+
+        System.out.println(usuario);
+
+        assertThat(usuario.getId(), is(1));
+
+    }
+    @Test
+    void dadoIdUsuario_cuandogetUsuarioNoEnDB_entoncesExcepcion() {
+        assertThrows(UsuarioNotFoundException.class, () -> {
+            Usuario usuario = repo.getUsuarioById(99);
+        });
+
+    }
+
+    @Test
     void dadoUnUsuarioValido_cuandoActualizar_entoncesUsuarioValido() {
     }
 
@@ -75,6 +92,10 @@ class UsuarioJDBCRepositoryTest {
 
     @Test
     void dadoUnUsuarioNOValido_cuandoObtenerPosiblesDestinatarios_entoncesExcepcion() {
+    }
+
+    @Test
+    void getUsuarioById() {
     }
 
 }
