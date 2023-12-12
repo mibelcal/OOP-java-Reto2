@@ -9,7 +9,7 @@ import java.util.List;
 public class ControladorMensajes {
     private IServicioMensajeria servicioMensajeria;
 
-    public boolean enviarMensaje(Integer remitente, Integer destinatario, String texto) {
+    public boolean enviarMensaje(Integer remitente, Integer destinatario, String texto) throws Exception {
         try {
             Usuario uRemitente = new Usuario();
             uRemitente.setId(remitente);
