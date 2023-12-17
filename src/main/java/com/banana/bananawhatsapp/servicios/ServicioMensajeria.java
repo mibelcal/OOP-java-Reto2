@@ -39,7 +39,7 @@ public class ServicioMensajeria implements IServicioMensajeria {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        } 
+        }
 
 //        if (remitente != repoUsuarios.getUsuarioById(remitente.getId()) ||
 //                destinatario != repoUsuarios.getUsuarioById(destinatario.getId())) {
