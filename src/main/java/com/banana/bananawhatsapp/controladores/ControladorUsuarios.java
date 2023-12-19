@@ -16,7 +16,6 @@ public class ControladorUsuarios {
     @Autowired
     private IServicioUsuarios servicioUsuarios;
 
-
     public Usuario alta(Usuario nuevo) throws SQLException, UsuarioException {
         try {
             Usuario usuario = servicioUsuarios.crearUsuario(nuevo);

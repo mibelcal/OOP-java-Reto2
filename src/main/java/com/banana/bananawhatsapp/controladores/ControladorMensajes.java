@@ -1,5 +1,6 @@
 package com.banana.bananawhatsapp.controladores;
 
+import com.banana.bananawhatsapp.exceptions.MensajeException;
 import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import com.banana.bananawhatsapp.servicios.IServicioMensajeria;
@@ -20,10 +21,14 @@ public class ControladorMensajes {
             uRemitente.setId(remitente);
             Usuario uDestinatario = new Usuario();
             uDestinatario.setId(destinatario);
-
-            Mensaje mensaje = servicioMensajeria.enviarMensaje(uRemitente, uDestinatario, texto);
-            System.out.println("Mensaje enviado: " + mensaje);
-            return true;
+            //controlar ids diferentes
+            if (uRemitente.getId() != uDestinatario.getId()) {
+                Mensaje mensaje = servicioMensajeria.enviarMensaje(uRemitente, uDestinatario, texto);
+                System.out.println("Mensaje enviado: " + mensaje);
+                return true;
+            } else {
+                throw new MensajeException("Remitente y Destinatario no pueden ser el mismo!!!");
+            }
         } catch (Exception e) {
             System.out.println("Ha habido un error: " + e.getMessage());
             throw e;
