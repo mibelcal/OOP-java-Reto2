@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
@@ -64,7 +65,15 @@ class MensajeJDBCRepositoryTest {
     }
 
     @Test
-    void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() {
+    void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() throws Exception {
+
+        Usuario usuario = repoUsuarios.getUsuarioById(1);
+         
+        List<Mensaje> mensajes = repoMensajes.obtener(usuario);
+
+        System.out.println(mensajes);
+
+        assertThat(mensajes.size(), greaterThan(0));
     }
 
     @Test

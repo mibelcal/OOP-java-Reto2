@@ -41,21 +41,6 @@ public class ServicioMensajeria implements IServicioMensajeria {
             throw new RuntimeException(e);
         }
 
-//        if (remitente != repoUsuarios.getUsuarioById(remitente.getId()) ||
-//                destinatario != repoUsuarios.getUsuarioById(destinatario.getId())) {
-//            throw new UsuarioNotFoundException();
-//        } else {
-//            Mensaje mensaje = new Mensaje(null, remitente, destinatario, texto, LocalDate.now());
-//            repoMensajes.crear(mensaje);
-//            return mensaje;
-//        }
-//        if (remitente = repoUsuarios.getUsuarioById(remitente.getId()) &&
-//                destinatario = repoUsuarios.getUsuarioById(destinatario.getId())) {
-//            Mensaje mensaje = new Mensaje(null, remitente, destinatario, texto, LocalDate.now());
-//            repoMensajes.crear(mensaje);
-//            return mensaje;
-//        } else throw new UsuarioNotFoundException();
-
     }
 
     @Override
