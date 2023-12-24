@@ -2,6 +2,7 @@ package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.config.SpringConfig;
 import com.banana.bananawhatsapp.exceptions.MensajeException;
+import com.banana.bananawhatsapp.exceptions.UsuarioNotFoundException;
 import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -68,7 +70,7 @@ class MensajeJDBCRepositoryTest {
     void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() throws Exception {
 
         Usuario usuario = repoUsuarios.getUsuarioById(1);
-         
+
         List<Mensaje> mensajes = repoMensajes.obtener(usuario);
 
         System.out.println(mensajes);
@@ -78,6 +80,14 @@ class MensajeJDBCRepositoryTest {
 
     @Test
     void dadoUnUsuarioNOValido_cuandoObtener_entoncesExcepcion() {
+        assertThrows(UsuarioNotFoundException.class, () -> {
+            //Usuario no válido: 99 no existe
+            Usuario usuario = repoUsuarios.getUsuarioById(99);
+
+            List<Mensaje> mensajes = repoMensajes.obtener(usuario);
+
+            System.out.println(mensajes);
+        });
     }
 
     @Test
