@@ -60,7 +60,7 @@ public class MensajeJDBCRepository implements IMensajeRepository {
 
     @Override
     public List<Mensaje> obtener(Usuario usuario) throws SQLException {
-        System.out.println("entro en obtener");
+        System.out.println("Obtener todos los mensajes del usuario: " + usuario.getId());
         List<Mensaje> mensajes = new ArrayList<>();
 
         try (
@@ -94,7 +94,6 @@ public class MensajeJDBCRepository implements IMensajeRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Mensajes Usuario " +usuario.getId() + " " +usuario.getNombre() + ":");
         return mensajes;
     }
 

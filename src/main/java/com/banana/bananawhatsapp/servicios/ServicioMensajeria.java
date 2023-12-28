@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +34,7 @@ public class ServicioMensajeria implements IServicioMensajeria {
             repoMensajes.crear(mensaje);
             return mensaje;
 
-        }catch (UsuarioNotFoundException e) {
+        } catch (UsuarioNotFoundException e) {
             e.printStackTrace();
             throw new UsuarioNotFoundException();
         } catch (Exception e) {
@@ -44,8 +45,32 @@ public class ServicioMensajeria implements IServicioMensajeria {
     }
 
     @Override
-    public List<Mensaje> mostrarChatConUsuario(Usuario remitente, Usuario destinatario) throws UsuarioException, MensajeException {
-        return null;
+    public List<Mensaje> mostrarChatConUsuario(Usuario remitente, Usuario destinatario) throws Exception, UsuarioNotFoundException {
+        System.out.println("MostrarChat entre usuario "+remitente.getId()+ " y usuario "+destinatario.getId());
+        try {
+            Usuario uRemitente = repoUsuarios.getUsuarioById(remitente.getId());
+            Integer idDestinatario = destinatario.getId();
+
+            List<Mensaje> mensajes = repoMensajes.obtener(uRemitente);
+            List<Mensaje> chat = new ArrayList<>();
+            System.out.println("Nos quedamos sólo con los del usu"+destinatario.getId());
+
+            for (Mensaje mensaje : mensajes) {
+                if ((mensaje.getRemitente().getId().equals(uRemitente.getId())) &&
+                        (mensaje.getDestinatario().getId().equals(idDestinatario)) ||
+                        (mensaje.getRemitente().getId().equals(idDestinatario)) &&
+                                (mensaje.getDestinatario().getId().equals(uRemitente.getId()))) {
+                    chat.add(mensaje);
+                    System.out.println(mensaje.getCuerpo());
+                }
+
+            }
+            return chat;
+        } catch (SQLException e) {
+            throw new Exception(e);
+        }catch (UsuarioNotFoundException u) {
+            throw new UsuarioNotFoundException();
+        }
     }
 
     @Override

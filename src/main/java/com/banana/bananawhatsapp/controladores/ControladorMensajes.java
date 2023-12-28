@@ -36,7 +36,7 @@ public class ControladorMensajes {
 
     }
 
-    public boolean mostrarChat(Integer remitente, Integer destinatario) {
+    public boolean mostrarChat(Integer remitente, Integer destinatario) throws Exception {
         try {
             Usuario uRemitente = new Usuario();
             uRemitente.setId(remitente);

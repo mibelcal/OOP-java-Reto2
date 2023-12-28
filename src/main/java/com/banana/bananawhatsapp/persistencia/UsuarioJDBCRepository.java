@@ -75,12 +75,12 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
                 throw new UsuarioNotFoundException("Usuario no encontrado!!!");
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception(e);
         } catch (UsuarioNotFoundException e) {
             e.printStackTrace();
             throw new UsuarioNotFoundException();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception(e);
         }
 
         return user;

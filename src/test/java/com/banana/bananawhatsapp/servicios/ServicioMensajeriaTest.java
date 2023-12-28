@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -54,11 +55,30 @@ class ServicioMensajeriaTest {
     }
 
     @Test
-    void dadoRemitenteYDestinatarioValido_cuandoMostrarChatConUsuario_entoncesListaMensajes() {
+    void dadoRemitenteYDestinatarioValido_cuandoMostrarChatConUsuario_entoncesListaMensajes() throws Exception {
+        Usuario remitente = new Usuario(1,null,null,null,false);
+        Usuario destinatario = new Usuario(4,null,null,null,false);
+    //    Usuario destinatario = new Usuario(6,null,null,null,false);
+
+        List<Mensaje> chat = servicio.mostrarChatConUsuario(remitente,destinatario);
+
+        System.out.println(chat);
+
+        assertThat(chat.size(), greaterThan(0));
+        //assertThat(chat.size(), greaterThanOrEqualTo(0));
     }
 
     @Test
     void dadoRemitenteYDestinatarioNOValido_cuandoMostrarChatConUsuario_entoncesExcepcion() {
+    assertThrows(UsuarioNotFoundException.class, () -> {
+        //Usuario inexistente
+        Usuario remitente = new Usuario(99,null,null,null,false);
+        Usuario destinatario = new Usuario(1,null,null,null,false);
+
+        List<Mensaje> mensajes = servicio.mostrarChatConUsuario(remitente,destinatario);
+
+        System.out.println(mensajes);
+        });
     }
 
     @Test

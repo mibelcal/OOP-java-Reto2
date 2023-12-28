@@ -12,7 +12,7 @@ public interface IServicioMensajeria {
 
     public Mensaje enviarMensaje(Usuario remitente, Usuario destinatario, String texto) throws Exception;
 
-    public List<Mensaje> mostrarChatConUsuario(Usuario remitente, Usuario destinatario) throws UsuarioException, MensajeException;
+    public List<Mensaje> mostrarChatConUsuario(Usuario remitente, Usuario destinatario) throws Exception;
 
     public boolean borrarChatConUsuario(Usuario remitente, Usuario destinatario) throws UsuarioException, MensajeException;
 
