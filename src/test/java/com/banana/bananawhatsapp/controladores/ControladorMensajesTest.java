@@ -50,11 +50,26 @@ class ControladorMensajesTest {
     }
 
     @Test
-    void dadoRemitenteYDestinatarioValidos_cuandoMostrarChat_entoncesOK() {
+    void dadoRemitenteYDestinatarioValidos_cuandoMostrarChat_entoncesOK() throws Exception {
+        //Chat entre usuarios 1 y 4
+        Integer idRemitente = 1;
+        Integer idDestinatario = 4;
+
+        Boolean result = controladorMensajes.mostrarChat(idRemitente, idDestinatario);
+        assertThat(result,is(true));
     }
 
     @Test
     void dadoRemitenteYDestinatarioNOValidos_cuandoMostrarChat_entoncesExcepcion() {
+    assertThrows(Exception.class, () -> {
+        //Chat usuario inexistente
+        Integer idRemitente = 99;
+        Integer idDestinatario = 1;
+
+        Boolean result = controladorMensajes.mostrarChat(idRemitente, idDestinatario);
+
+
+        });
     }
 
     @Test
