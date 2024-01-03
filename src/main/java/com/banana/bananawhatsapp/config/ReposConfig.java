@@ -19,25 +19,26 @@ public class ReposConfig {
     }
 
     @Bean
-    @Profile("default")
+    @Profile("prod")
     public IUsuarioRepository createIUsuarioRepository() {
         System.out.println("usando UsuarioJDBCRepository...");
         UsuarioJDBCRepository repo = new UsuarioJDBCRepository();
         repo.setDb_url(connUrl);
         return repo;
     }
-//
-//    @Bean
-//    @Profile("dev")
-//    public IUsuarioRepository createInMemUsuarioRepository() {
-//        System.out.println("usando UsuarioInMemoryRepository...");
-//        UsuarioInMemoryRepository repo = new UsuarioInMemoryRepository();
-//        return repo;
-//    }
+
+    @Bean
+    @Profile("dev")
+    public IUsuarioRepository createInMemUsuarioRepository() {
+        System.out.println("usando UsuarioInMemoryRepository...");
+        UsuarioInMemoryRepository repo = new UsuarioInMemoryRepository();
+        return repo;
+    }
 
 
     @Bean
-    @Profile("default")
+    //@Profile("default")
+    @Profile("prod")
     public IMensajeRepository createIMensajeRepository() {
         System.out.println("usando MensajeJDBCRepository...");
         MensajeJDBCRepository repoMensajes = new MensajeJDBCRepository();
@@ -45,5 +46,12 @@ public class ReposConfig {
         return repoMensajes;
     }
 
+    @Bean
+    @Profile("dev")
+    public IMensajeRepository createInMemMensajeRepository() {
+        System.out.println("usando MensajeInMemoryRepository...");
+        MensajeInMemoryRepository repoMensajes = new MensajeInMemoryRepository();
+        return repoMensajes;
+    }
 
 }

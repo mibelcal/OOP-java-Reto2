@@ -62,7 +62,7 @@ class ControladorMensajesTest {
     @Test
     void dadoRemitenteYDestinatarioNOValidos_cuandoMostrarChat_entoncesExcepcion() {
     assertThrows(Exception.class, () -> {
-        //Chat usuario inexistente
+        //Chat usuario inexistente (pero testeamos sólo exception, anque sea más genérica
         Integer idRemitente = 99;
         Integer idDestinatario = 1;
 

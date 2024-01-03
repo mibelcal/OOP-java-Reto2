@@ -7,6 +7,7 @@ import com.banana.bananawhatsapp.modelos.Usuario;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
-//@ActiveProfiles("dev")
+@ActiveProfiles("dev")
 class UsuarioJDBCRepositoryTest {
 
     @Autowired
@@ -31,7 +32,7 @@ class UsuarioJDBCRepositoryTest {
     }
 
     @Test
-    void dadoUnUsuarioValido_cuandoCrear_entoncesUsuarioValido() throws SQLException {
+    void dadoUnUsuarioValido_cuandoCrear_entoncesUsuarioValido() throws Exception {
 
         Usuario user = new Usuario(null, "Isabel", "Isabel@gmail.com", LocalDate.of(2023, 12, 06), true);
 
@@ -40,6 +41,7 @@ class UsuarioJDBCRepositoryTest {
         System.out.println(user);
 
         assertThat(user.getId(), greaterThan(2));
+
     }
 
     @Test

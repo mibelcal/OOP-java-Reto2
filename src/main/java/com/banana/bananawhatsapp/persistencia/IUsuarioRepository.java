@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Set;
 
 public interface IUsuarioRepository {
-    public Usuario crear(Usuario usuario) throws SQLException;
+    public Usuario crear(Usuario usuario) throws SQLException, Exception;
 
     Usuario getUsuarioById(Integer id) throws UsuarioNotFoundException, Exception;
 

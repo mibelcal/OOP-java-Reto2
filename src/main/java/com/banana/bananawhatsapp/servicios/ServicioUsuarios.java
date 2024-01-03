@@ -9,14 +9,24 @@ import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 
 @Service
-public class ServicioUsuarios implements IServicioUsuarios{
+public class ServicioUsuarios implements IServicioUsuarios {
     @Autowired
     private IUsuarioRepository repoUsuarios;
 
     @Override
     public Usuario crearUsuario(Usuario usuario) throws UsuarioException, SQLException {
-        repoUsuarios.crear(usuario);
-        return usuario;
+        try {
+            repoUsuarios.crear(usuario);
+            return usuario;
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        } catch (UsuarioException e) {
+            throw new UsuarioException();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Override
