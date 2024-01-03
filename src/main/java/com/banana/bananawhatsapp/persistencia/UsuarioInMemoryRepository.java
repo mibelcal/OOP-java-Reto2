@@ -28,7 +28,7 @@ public class UsuarioInMemoryRepository implements IUsuarioRepository {
 
     @Override
     public Usuario crear(Usuario nuevoUsuario) throws SQLException, UsuarioException, Exception {
-
+        //IBC id=id=231580603 (para probar, sirve, pero lo ideal sería un 3)
         int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
 
         nuevoUsuario.setId(newId);
