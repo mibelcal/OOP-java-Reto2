@@ -25,15 +25,21 @@ public class MensajeInMemoryRepository implements IMensajeRepository {
         Usuario remitente = new Usuario(1, null, null, null, false);
         Usuario destinatario = new Usuario(2, null, null, null, false);
 
-        mensajes.add(new Mensaje(1, remitente, destinatario, "Mensaje InMemory ini", LocalDate.of(2024, 01, 03)));
-        mensajes.add(new Mensaje(2, destinatario, remitente, "Mensaje InMemory fin", LocalDate.of(2024, 01, 03)));
+        mensajes.add(new Mensaje(1, remitente, destinatario, "Mensaje InMemory ini1", LocalDate.of(2024, 01, 03)));
+        mensajes.add(new Mensaje(2, destinatario, remitente, "Mensaje InMemory fin1", LocalDate.of(2024, 01, 03)));
+        mensajes.add(new Mensaje(3, remitente, destinatario, "Mensaje InMemory ini2", LocalDate.of(2024, 01, 03)));
+        mensajes.add(new Mensaje(4, destinatario, remitente, "Mensaje InMemory fin2", LocalDate.of(2024, 01, 03)));
+        mensajes.add(new Mensaje(5, remitente, destinatario, "Mensaje InMemory ini3", LocalDate.of(2024, 01, 03)));
+        mensajes.add(new Mensaje(6, destinatario, remitente, "Mensaje InMemory fin3", LocalDate.of(2024, 01, 03)));
+
 
     }
 
     @Override
-    public Mensaje crear(Mensaje nuevoMensaje) throws SQLException, Exception {
+    public Mensaje crear(Mensaje nuevoMensaje) throws SQLException {
 
-        int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
+        //int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
+        int newId = mensajes.size() + 1;
 
         nuevoMensaje.setId(newId);
         mensajes.add(nuevoMensaje);
@@ -45,6 +51,7 @@ public class MensajeInMemoryRepository implements IMensajeRepository {
     public List<Mensaje> obtener(Usuario usuario) throws SQLException {
         return null;
     }
+
     @Override
     public boolean borrarTodos(Usuario usuario) throws SQLException {
         return false;

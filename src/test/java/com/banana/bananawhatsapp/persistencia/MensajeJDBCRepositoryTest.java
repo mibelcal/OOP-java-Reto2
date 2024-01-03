@@ -39,6 +39,7 @@ class MensajeJDBCRepositoryTest {
 
     @Test
     void dadoUnMensajeValido_cuandoCrear_entoncesMensajeValido() throws Exception {
+
         Usuario remitente = repoUsuarios.getUsuarioById(6);
         Usuario destinatario = repoUsuarios.getUsuarioById(5);
 
@@ -49,6 +50,7 @@ class MensajeJDBCRepositoryTest {
         System.out.println(mensaje);
 
         assertThat(mensaje.getId(), greaterThan(5));
+
     }
 
     @Test
@@ -56,7 +58,7 @@ class MensajeJDBCRepositoryTest {
         assertThrows(MensajeException.class, () -> {
             //Mensaje no válido: remitente null
             Usuario remitente = null;
-            Usuario destinatario = repoUsuarios.getUsuarioById(5);
+            Usuario destinatario = repoUsuarios.getUsuarioById(99);
 
             Mensaje mensaje = new Mensaje(null, remitente, destinatario, "Mensaje Controlador >> Servicio", LocalDate.of(2023, 12, 10));
 

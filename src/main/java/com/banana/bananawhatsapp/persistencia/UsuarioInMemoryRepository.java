@@ -24,32 +24,38 @@ public class UsuarioInMemoryRepository implements IUsuarioRepository {
 
         usuarios.add(new Usuario(1, "JuanaIM", "juanaIM@e.com", LocalDate.of(2001, 3, 5), true));
         usuarios.add(new Usuario(2, "LuisaIM", "luisaIM@e.com", LocalDate.of(1996, 4, 6), true));
+        usuarios.add(new Usuario(3, "Usu3IM", "juanaIM@e.com", LocalDate.of(2001, 3, 5), true));
+        usuarios.add(new Usuario(4, "Usu4IM", "luisaIM@e.com", LocalDate.of(1996, 4, 6), true));
+        usuarios.add(new Usuario(5, "Usu5IM", "luisaIM@e.com", LocalDate.of(1996, 4, 6), true));
+        usuarios.add(new Usuario(6, "Usu6IM", "luisaIM@e.com", LocalDate.of(1996, 4, 6), true));
+
     }
 
     @Override
-    public Usuario crear(Usuario nuevoUsuario) throws SQLException, UsuarioException, Exception {
+    public Usuario crear(Usuario nuevoUsuario) throws SQLException, UsuarioException {
         //IBC id=id=231580603 (para probar, sirve, pero lo ideal sería un 3)
-        int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
+        //int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
+        if (nuevoUsuario.valido() == true) {
+            System.out.println("Nuevo Usuario válido!!!");
 
-        nuevoUsuario.setId(newId);
-        usuarios.add(nuevoUsuario);
-        System.out.println("Usuarios: "+usuarios.toString());
-        return nuevoUsuario;
+            int newId = usuarios.size() + 1;
+
+            nuevoUsuario.setId(newId);
+            usuarios.add(nuevoUsuario);
+            System.out.println("Usuarios: " + usuarios.toString());
+            return nuevoUsuario;
+        } else throw new UsuarioException("Nuevo Usuario incorrecto");
     }
 
     @Override
-//    public Usuario getUsuario(String email, String pass) throws UsuarioNotFoundException, Exception {
-//        for (Usuario usuario : usuarios) {
-//            if (usuario.getEmail().equals(email) && usuario.getPassword().equals(pass)) {
-//                return usuario;
-//            }
-//        }
-//
-//        throw new UsuarioNotFoundException();
-//    }
-
     public Usuario getUsuarioById(Integer id) throws UsuarioNotFoundException, Exception {
-        return null;
+        for (Usuario usuario : usuarios) {
+            if (usuario.getId().equals(id)) {
+                return usuario;
+            }
+        }
+
+        throw new UsuarioNotFoundException();
     }
 
     @Override
