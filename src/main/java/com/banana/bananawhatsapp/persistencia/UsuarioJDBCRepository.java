@@ -2,16 +2,22 @@ package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.exceptions.UsuarioNotFoundException;
+import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Set;
 
 @Setter
 public class UsuarioJDBCRepository implements IUsuarioRepository {
 
     private String db_url = null;
+
+    @Autowired
+    private IMensajeRepository repoMensajes;
 
     @Override
     public Usuario crear(Usuario usuario) throws SQLException, UsuarioException {
@@ -94,8 +100,50 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
 
     @Override
     public boolean borrar(Usuario usuario) throws SQLException {
-        return false;
+    Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(db_url);
+            Statement stmt = conn.createStatement();
+
+            conn.setAutoCommit(false);
+
+            // OBTENEMOS EL CHAT DEL USUARIO (no hace falta)
+            //List<Mensaje> mensajes = repoMensajes.obtener(usuario);
+
+            // BORRAR CHATS USUARIO
+            boolean chatsBorradosOk = repoMensajes.borrarTodos(usuario);
+
+            // BORRAR USUARIO
+            String sql = "DELETE FROM usuario WHERE id =?";
+
+            PreparedStatement pstm = conn.prepareStatement(sql);
+
+            pstm.setInt(1, usuario.getId());
+
+            int rows = pstm.executeUpdate();
+            System.out.println(rows);
+
+            if (rows <= 0) {
+                throw new UsuarioNotFoundException();
+            }
+
+            pstm.close();
+
+            System.out.println("Transacción exitosa!!");
+            conn.commit();
+
+        } catch (Exception e) {
+            System.out.println("Transacción rollback!!");
+            conn.rollback();
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (conn != null) conn.close();
+        }
+
+        return true;
     }
+
 
     @Override
     public Set<Usuario> obtenerPosiblesDestinatarios(Integer id, Integer max) throws SQLException {
