@@ -126,6 +126,10 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
             int rows = pstm.executeUpdate();
             System.out.println(rows);
 
+            //IBC fuerzo rollback ==> DUDA para Ricardo (me restaura el usuario, pero no los mensajes)
+//            rows = -1;
+//            System.out.println("Rollback forzado !!!!");
+
             if (rows <= 0) {
                 throw new UsuarioNotFoundException();
             }
@@ -135,7 +139,12 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
             System.out.println("Transacción exitosa!!");
             conn.commit();
 
-        } catch (Exception e) {
+        } catch (UsuarioNotFoundException e) {
+            System.out.println("Transacción rollback!!");
+            conn.rollback();
+            e.printStackTrace();
+            throw e;
+        }catch (Exception e) {
             System.out.println("Transacción rollback!!");
             conn.rollback();
             e.printStackTrace();

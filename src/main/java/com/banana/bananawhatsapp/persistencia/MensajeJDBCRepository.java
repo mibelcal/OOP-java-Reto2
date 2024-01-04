@@ -102,10 +102,13 @@ public class MensajeJDBCRepository implements IMensajeRepository {
     public boolean borrarTodos(Usuario usuario) throws SQLException {
         System.out.println("Borrando mensajes usuario "+usuario.getId());
         String sql = "DELETE FROM mensaje WHERE from_user=? OR to_user=?";
+        //Connection conn = null;
 
         try (
                 Connection conn = DriverManager.getConnection(db_url);
                 PreparedStatement stmt = conn.prepareStatement(sql);
+                //Pruebo IBC
+                //conn.setAutoCommit(false);
         ) {
             stmt.setInt(1, usuario.getId());
             stmt.setInt(2, usuario.getId());
@@ -121,6 +124,9 @@ public class MensajeJDBCRepository implements IMensajeRepository {
             e.printStackTrace();
             throw e;
         }
+//        }finally {
+//            if (conn != null) conn.close();
+//        }
 
         return true;
     }
