@@ -20,7 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfig.class})
-@ActiveProfiles("dev")
+//Profile dev - InMemory
+//@ActiveProfiles("dev")
+//Profile prod - JDBC
+@ActiveProfiles("prod")
 class UsuarioJDBCRepositoryTest {
 
     @Autowired
