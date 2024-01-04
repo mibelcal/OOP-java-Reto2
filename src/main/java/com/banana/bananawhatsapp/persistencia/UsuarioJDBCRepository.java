@@ -112,8 +112,11 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
 
             // BORRAR CHATS USUARIO
             boolean chatsBorradosOk = repoMensajes.borrarTodos(usuario);
+            System.out.println("chatsBorradosOk: "+chatsBorradosOk);
 
             // BORRAR USUARIO
+            System.out.println("Borrando usuario "+usuario.getId());
+
             String sql = "DELETE FROM usuario WHERE id =?";
 
             PreparedStatement pstm = conn.prepareStatement(sql);

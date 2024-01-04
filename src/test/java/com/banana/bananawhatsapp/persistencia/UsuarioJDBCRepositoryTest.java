@@ -67,6 +67,7 @@ class UsuarioJDBCRepositoryTest {
         assertThat(usuario.getId(), is(1));
 
     }
+
     @Test
     void dadoIdUsuario_cuandogetUsuarioNoEnDB_entoncesExcepcion() {
         assertThrows(UsuarioNotFoundException.class, () -> {
@@ -84,7 +85,13 @@ class UsuarioJDBCRepositoryTest {
     }
 
     @Test
-    void dadoUnUsuarioValido_cuandoBorrar_entoncesOK() {
+    void dadoUnUsuarioValido_cuandoBorrar_entoncesOK() throws Exception {
+        Usuario usuario = repo.getUsuarioById(7);
+        boolean result = repo.borrar(usuario);
+
+        System.out.println("Usuario borrado ok: " + result);
+
+        assertThat(result, is(true));
     }
 
     @Test
