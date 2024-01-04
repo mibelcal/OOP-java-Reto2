@@ -58,7 +58,9 @@ class MensajeJDBCRepositoryTest {
         assertThrows(MensajeException.class, () -> {
             //Mensaje no válido: remitente null
             Usuario remitente = null;
-            Usuario destinatario = repoUsuarios.getUsuarioById(99);
+            //Usuario destinatario = repoUsuarios.getUsuarioById(99);
+            Usuario destinatario = new Usuario();
+            destinatario.setId(99);
 
             Mensaje mensaje = new Mensaje(null, remitente, destinatario, "Mensaje Controlador >> Servicio", LocalDate.of(2023, 12, 10));
 
@@ -73,7 +75,7 @@ class MensajeJDBCRepositoryTest {
     void dadoUnUsuarioValido_cuandoObtener_entoncesListaMensajes() throws Exception {
 
         Usuario usuario = repoUsuarios.getUsuarioById(1);
-
+        System.out.println("usuario: "+usuario.toString());
         List<Mensaje> mensajes = repoMensajes.obtener(usuario);
 
         System.out.println(mensajes);

@@ -1,5 +1,6 @@
 package com.banana.bananawhatsapp.persistencia;
 
+import com.banana.bananawhatsapp.exceptions.MensajeException;
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.exceptions.UsuarioNotFoundException;
 import com.banana.bananawhatsapp.modelos.Mensaje;
@@ -37,19 +38,35 @@ public class MensajeInMemoryRepository implements IMensajeRepository {
 
     @Override
     public Mensaje crear(Mensaje nuevoMensaje) throws SQLException {
+        if (nuevoMensaje.valido() == true) {
+            System.out.println("Mensaje válido!!!");
+            //int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
+            int newId = mensajes.size() + 1;
 
-        //int newId = SecureRandom.getInstance("SHA1PRNG").nextInt();
-        int newId = mensajes.size() + 1;
-
-        nuevoMensaje.setId(newId);
-        mensajes.add(nuevoMensaje);
-        System.out.println("Mensajes: " + mensajes.toString());
-        return nuevoMensaje;
+            nuevoMensaje.setId(newId);
+            mensajes.add(nuevoMensaje);
+            System.out.println("Mensajes: " + mensajes.toString());
+            return nuevoMensaje;
+        } else throw new MensajeException("Mensaje no creado");
     }
 
     @Override
     public List<Mensaje> obtener(Usuario usuario) throws SQLException {
-        return null;
+        List<Mensaje> mensajesUsuario = new ArrayList<>();
+        for (Mensaje mensaje : mensajes) {
+            if (mensaje.getRemitente().getId().equals(usuario.getId())) {
+                mensajesUsuario.add(mensaje);
+            }
+//            if (mensaje.getRemitente().equals(usuario)) {
+//                mensajesUsuario.add(mensaje);
+//            }
+
+//            if (usuario.getId().equals(id)) {
+//                return usuario;
+//            }
+        }
+        return mensajesUsuario;
+
     }
 
     @Override
