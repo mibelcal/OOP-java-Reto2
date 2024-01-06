@@ -111,7 +111,9 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
             //List<Mensaje> mensajes = repoMensajes.obtener(usuario);
 
             // BORRAR CHATS USUARIO
-            boolean chatsBorradosOk = repoMensajes.borrarTodos(usuario);
+            //boolean chatsBorradosOk = repoMensajes.borrarTodos(usuario);
+            boolean chatsBorradosOk = repoMensajes.borrarTodos(usuario, conn);
+
             System.out.println("chatsBorradosOk: "+chatsBorradosOk);
 
             // BORRAR USUARIO
@@ -126,7 +128,8 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
             int rows = pstm.executeUpdate();
             System.out.println(rows);
 
-            //IBC fuerzo rollback ==> DUDA para Ricardo (me restaura el usuario, pero no los mensajes)
+            //IBC fuerzo rollback ==> DUDA para Ricardo (Si no paso la conexión como parámetro, me restaura el usuario, pero no los mensajes) (por tanto, tengo que modificar métodos para añadir el param conn ¿puede hacerse de otra forma?
+            //Activar para probar Rollback
 //            rows = -1;
 //            System.out.println("Rollback forzado !!!!");
 
@@ -140,7 +143,7 @@ public class UsuarioJDBCRepository implements IUsuarioRepository {
             conn.commit();
 
         } catch (UsuarioNotFoundException e) {
-            System.out.println("Transacción rollback!!");
+            System.out.println("Transacción rollback UsuarioNotFound!!");
             conn.rollback();
             e.printStackTrace();
             throw e;

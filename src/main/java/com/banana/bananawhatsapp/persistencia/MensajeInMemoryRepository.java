@@ -7,6 +7,7 @@ import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 
 import java.security.SecureRandom;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -70,7 +71,9 @@ public class MensajeInMemoryRepository implements IMensajeRepository {
     }
 
     @Override
-    public boolean borrarTodos(Usuario usuario) throws SQLException {
+    //public boolean borrarTodos(Usuario usuario) throws SQLException {
+    public boolean borrarTodos(Usuario usuario, Connection conn) throws SQLException {
+
         return false;
     }
 

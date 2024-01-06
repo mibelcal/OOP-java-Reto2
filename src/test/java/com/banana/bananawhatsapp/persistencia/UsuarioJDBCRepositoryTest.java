@@ -87,7 +87,7 @@ class UsuarioJDBCRepositoryTest {
     @Test
     void dadoUnUsuarioValido_cuandoBorrar_entoncesOK() throws Exception {
         //Crear previamente usuario y mensajes (si no existen)
-        Usuario usuario = repo.getUsuarioById(8);
+        Usuario usuario = repo.getUsuarioById(9);
         boolean result = repo.borrar(usuario);
 
         System.out.println("Usuario borrado ok: " + result);
