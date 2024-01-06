@@ -58,13 +58,6 @@ public class MensajeInMemoryRepository implements IMensajeRepository {
             if (mensaje.getRemitente().getId().equals(usuario.getId())) {
                 mensajesUsuario.add(mensaje);
             }
-//            if (mensaje.getRemitente().equals(usuario)) {
-//                mensajesUsuario.add(mensaje);
-//            }
-
-//            if (usuario.getId().equals(id)) {
-//                return usuario;
-//            }
         }
         return mensajesUsuario;
 

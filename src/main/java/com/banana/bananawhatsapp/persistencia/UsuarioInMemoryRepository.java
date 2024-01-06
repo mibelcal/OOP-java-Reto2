@@ -73,36 +73,4 @@ public class UsuarioInMemoryRepository implements IUsuarioRepository {
         return null;
     }
 
-
-//    @Override
-//    public List<Usuario> getUsuarios(String iniciales) throws Exception {
-//        return null;
-//    }
-
-
-//    @Override
-//    public Usuario updateUsuario(Usuario unUsuario) throws UsuarioNotFoundException {
-//        for (Usuario usuario : usuarios) {
-//            if (usuario.getUid() == unUsuario.getUid()) {
-//                usuarios.remove(usuario);
-//                usuarios.add(unUsuario);
-//                return unUsuario;
-//            }
-//        }
-//
-//        throw new UsuarioNotFoundException();
-//    }
-//
-//    @Override
-//    public boolean deleteUsuario(Integer uid) throws UsuarioNotFoundException {
-//        for (Usuario usuario : usuarios) {
-//            if (usuario.getUid() == uid) {
-//                usuarios.remove(usuario);
-//                return true;
-//            }
-//        }
-//
-//        throw new UsuarioNotFoundException();
-//    }
-
 }

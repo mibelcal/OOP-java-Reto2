@@ -37,7 +37,6 @@ public class ReposConfig {
 
 
     @Bean
-    //@Profile("default")
     @Profile("prod")
     public IMensajeRepository createIMensajeRepository() {
         System.out.println("usando MensajeJDBCRepository...");
